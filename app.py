@@ -36,7 +36,7 @@ if st.button('Buscar'):
     con.close()
 
     if resultados:
-        df = pd.DataFrame(resultados, columns=['Cliente', 'Fantasia', 'Dias'])
+        df = pd.DataFrame(resultados, columns=['Cliente', 'Fantasia', 'Dias', 'Vencimento'])
         st.session_state.df_original = df  # salva na sessão
     else:
         st.warning("Nenhum cliente encontrado.")
