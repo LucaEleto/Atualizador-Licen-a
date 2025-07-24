@@ -26,7 +26,7 @@ if st.button('Buscar'):
     con = conectar_banco()
     cursor = con.cursor()
     consulta = """
-        SELECT cliente, fantasia, dias 
+        SELECT cliente, fantasia, dias, vencimento 
         FROM licencas_clientes 
         WHERE cliente LIKE %s OR fantasia LIKE %s
     """
@@ -63,7 +63,7 @@ if st.session_state.df_original is not None:
             dias_novo = row['Dias']
             try:
                 cursor.execute(
-                    "UPDATE licencas_clientes SET dias = %s WHERE cliente = %s",
+                    "UPDATE licencas_clientes SET dias AND vencimento = %s, %s WHERE cliente = %s",
                     (dias_novo, cliente)
                 )
                 if cursor.rowcount > 0:
