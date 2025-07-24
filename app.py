@@ -73,7 +73,7 @@ if st.session_state.df_original is not None:
                 
         for index, row in df_editado.iterrows():
             cliente = row['Cliente']
-            Vencimento_novo = row['Vencimento']
+            vencimento_novo = row['Vencimento']
             try:
                 cursor.execute(
                     "UPDATE licencas_clientes SET vencimento = %s WHERE cliente = %s"
