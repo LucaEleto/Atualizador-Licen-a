@@ -64,7 +64,7 @@ if st.session_state.df_original is not None:
             vencimento = row['Vencimento']
             try:
                 cursor.execute(
-                    "UPDATE licencas_clientes SET dias AND vencimento = %s, %s WHERE cliente = %s",
+                    "UPDATE licencas_clientes SET dias = %s AND vencimento = %s WHERE cliente = %s",
                     (dias_novo, vencimento, cliente)
                 )
                 if cursor.rowcount > 0:
