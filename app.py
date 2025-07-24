@@ -19,7 +19,7 @@ if 'df_original' not in st.session_state:
     st.session_state.df_original = None
 
 # Entrada de busca
-busca = st.text_input('Pesquisar Cliente (nome ou código)')
+busca = st.text_input('Pesquisar Cliente (nome ou fantasia)')
 
 # Botão de busca
 if st.button('Buscar'):
@@ -61,17 +61,29 @@ if st.session_state.df_original is not None:
         for index, row in df_editado.iterrows():
             cliente = row['Cliente']
             dias_novo = row['Dias']
-            vencimento = row['Vencimento']
             try:
                 cursor.execute(
-                    "UPDATE licencas_clientes SET dias = %s OR vencimento = %s WHERE cliente = %s",
-                    (dias_novo, vencimento, cliente)
+                    "UPDATE licencas_clientes SET dias = %s WHERE cliente = %s",
+                    (dias_novo, cliente)
                 )
                 if cursor.rowcount > 0:
                     linhas_afetadas += 1
             except Exception as e:
                 st.error(f"Erro ao atualizar cliente {cliente}: {e}")
-
+                
+        for index, row in df_editado.iterrows():
+            cliente = row['Cliente']
+            Vencimento_novo = row['Vencimento']
+            try:
+                cursor.execute(
+                    "UPDATE licencas_clientes SET vencimento = %s WHERE cliente = %s"
+                    (vencimento_novo, cliente)
+                )
+                if cursor.rowcount > 0:
+                    linhas_afetadas += 1
+            except Exception as e:
+                st.error(f'Erro ao atualizar cliente {cliente}: {e}')
+                
         con.commit()
         cursor.close()
         con.close()
