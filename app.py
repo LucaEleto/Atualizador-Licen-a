@@ -84,6 +84,19 @@ if st.session_state.df_original is not None:
                     linhas_afetadas += 1
             except Exception as e:
                 st.error(f'Erro ao atualizar cliente {cliente}: {e}')
+                
+        for index, row in df_editado.iterrows():
+            cliente = row['Cliente']
+            fantasia_nova = row['Fantasia']
+            try:
+                cursor.execute(
+                    "UPDATE licencas_clientes SET Fantasia = %s WHERE cliente = %s",
+                    (fantasia_nova, cliente)
+                )
+                if cursor.rowcount > 0:
+                    linhas_afetadas += 1
+            except Exception as e:
+                st.error(f'Erro ao atualizar cliente {cliente}: {e}')
 
                 
         con.commit()
