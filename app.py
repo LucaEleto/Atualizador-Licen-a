@@ -26,7 +26,7 @@ if st.button('Buscar'):
     con = conectar_banco()
     cursor = con.cursor()
     consulta = """
-        SELECT cliente, fantasia, dias, vencimento 
+        SELECT cliente, fantasia, CNPJ, dias, vencimento 
         FROM licencas_clientes 
         WHERE cliente LIKE %s OR fantasia LIKE %s
         ORDER BY cliente
@@ -37,7 +37,7 @@ if st.button('Buscar'):
     con.close()
 
     if resultados:
-        df = pd.DataFrame(resultados, columns=['Cliente', 'Fantasia', 'Dias', 'Vencimento'])
+        df = pd.DataFrame(resultados, columns=['Cliente', 'Fantasia', 'CNPJ', 'Dias', 'Vencimento'])
         st.session_state.df_original = df  # salva na sessão
     else:
         st.warning("Nenhum cliente encontrado.")
@@ -84,6 +84,7 @@ if st.session_state.df_original is not None:
                     linhas_afetadas += 1
             except Exception as e:
                 st.error(f'Erro ao atualizar cliente {cliente}: {e}')
+
                 
         con.commit()
         cursor.close()
