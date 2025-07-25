@@ -29,7 +29,6 @@ if st.button('Buscar'):
         SELECT cliente, fantasia, CNPJ, dias, vencimento 
         FROM licencas_clientes 
         WHERE cliente LIKE %s OR fantasia LIKE %s
-        ORDER BY cliente
     """
     cursor.execute(consulta, (f"%{busca}%", f"%{busca}%"))
     resultados = cursor.fetchall()
