@@ -12,7 +12,7 @@ def conectar_banco():
     )
 
 st.image('logonova.bmp', width=100)
-st.title('Atualizar Dias de Licença')
+st.title('Atualizar de Licença')
 
 # Inicializar session_state para armazenar DataFrame
 if 'df_original' not in st.session_state:
